@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'Oswald';
+    src: url('./oswald-variablefont_wght-webfont.woff2') format('woff2'),
+    url('./oswald-variablefont_wght-webfont.woff') format('woff');
+    font-style: normal;
+}
+
+body {
+    height: 100vh;
+    font-family: 'Oswald', sans-serif;
+    display: grid;
+    grid-template-columns: minmax(200px, 15%) 1fr;
+    grid-template-rows: 10% 1fr;
+    margin: 0;
+    background-color: aliceblue;
+
+}
+
+header {
+    background-color: rgb(107, 179, 179);
+    grid-column: 1/3;
+    color: white;
+    padding-left: 20px;
+    font-size: 1.25rem;
+    
+}
+
+.sidebar{
+    background-color: rgb(26, 115, 150);
+    grid-row: 2/3;
+    
+}
