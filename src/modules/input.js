@@ -8,8 +8,12 @@ function openForm() {
     
 }
 
-function openProject() {
-const projectBtn = document.querySelector('.project-btn');
-projectBtn.addEventListener('click', newProjectInput);
+function cancelButton() {
+    const newToDo = document.querySelector('#new-todo');
+    const cancel = document.querySelector('#modal-cancel');
+    cancel.addEventListener('click', ()=>{
+        newToDo.close();
+    })
 }
-export {openForm, openProject};
+
+export {openForm, cancelButton};

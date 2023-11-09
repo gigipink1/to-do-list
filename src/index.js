@@ -1,6 +1,6 @@
 import './assets/style.css';
 import {createToDo} from './modules/todo';
-import {openForm} from  './modules/input';
+import {openForm, cancelButton} from  './modules/input';
 import { openProject } from './modules/dom';
 
 
@@ -9,4 +9,6 @@ const todo = [];
 todo.push(createToDo('do housework', 'do all housework', 'today', 'high'));
 console.log(todo);
 openForm();
+cancelButton();
 openProject();
+
