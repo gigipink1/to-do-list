@@ -1,7 +1,7 @@
 import './assets/style.css';
 import {createToDo} from './modules/todo';
 import {openForm, cancelButton} from  './modules/input';
-import { openProject } from './modules/dom';
+import { openProject, makeToDo } from './modules/dom';
 
 
 console.log('hello');
@@ -11,4 +11,5 @@ console.log(todo);
 openForm();
 cancelButton();
 openProject();
+makeToDo(todo[0]);
 

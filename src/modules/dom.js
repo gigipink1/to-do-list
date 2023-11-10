@@ -38,4 +38,41 @@ function openProject() {
         project.appendChild(options);
     }
 
-export{openProject};
+    function makeToDo(object) {
+        const main = document.querySelector('.to-dos');
+        const div = document.createElement('div');
+        const header = document.createElement('h3');
+        const para = document.createElement('p');
+        const btn = document.createElement('button');
+    
+        div.classList.add('todo-card');
+        header.textContent = object.title;
+        div.appendChild(header);
+        para.textContent = object.description;
+        div.appendChild(para.cloneNode(1));
+        para.textContent = 'Due Date: ' + object.dueDate;
+        div.appendChild(para.cloneNode(1));
+        para.textContent = 'Priority: ' + object.priority;
+        div.appendChild(para.cloneNode(1));
+        btn.classList.add('edit');
+        btn.textContent = 'Edit';
+        div.appendChild(btn.cloneNode(1));
+        btn.classList.remove('edit');
+        btn.classList.add('delete');
+        btn.textContent = 'Delete';
+        div.appendChild(btn.cloneNode(1));
+        main.appendChild(div);
+
+
+        const deleteBtn = div.querySelector('.delete');
+        deleteBtn.addEventListener('click', (e) => {
+            console.log(e.target.parentNode.firstChild.textContent);
+        });
+        const editBtn = div.querySelector('.edit');
+        editBtn.addEventListener('click', (e) => {
+            console.log(e.target.parentNode.firstChild.textContent);
+        });
+
+    }
+
+export{openProject, makeToDo};
