@@ -1,15 +1,14 @@
 import './assets/style.css';
 import {createToDo} from './modules/todo';
-import {openForm, cancelButton} from  './modules/input';
+import {openForm, cancelButton, submitButton} from  './modules/input';
 import { openProject, makeToDo } from './modules/dom';
 
 
 console.log('hello');
-const todo = [];
-todo.push(createToDo('do housework', 'do all housework', 'today', 'high'));
-console.log(todo);
+const todoex = [];
+todoex.push(createToDo('do housework', 'do all housework', 'today', 'high'));
 openForm();
 cancelButton();
+submitButton();
 openProject();
-makeToDo(todo[0]);
 

@@ -1,6 +1,6 @@
 
 
-function createToDo(title, desc, dueDate, priority, project = 'default') {
+function createToDo(title, desc, priority, dueDate, project = 'default') {
     
 
     return {title, desc, dueDate, priority, project}

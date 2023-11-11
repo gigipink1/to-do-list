@@ -19,14 +19,14 @@ function openProject() {
     projectBtn.addEventListener('click', newProjectInput);
     }
 
-    function getData(input) {
+function getData(input) {
         
         const projectName = input.target[0].value;
         console.log(projectName);
         addProject(projectName);
-    }
+}
 
-    function addProject(name) {
+function addProject(name) {
         const projectList = document.querySelector('.project-list');
         projectList.removeChild(projectList.lastChild);
         const li = document.createElement('li');
@@ -36,9 +36,9 @@ function openProject() {
         const project = document.querySelector('#project');
         options.textContent = name;
         project.appendChild(options);
-    }
+}
 
-    function makeToDo(object) {
+function makeToDo(object) {
         const main = document.querySelector('.to-dos');
         const div = document.createElement('div');
         const header = document.createElement('h3');
@@ -48,7 +48,7 @@ function openProject() {
         div.classList.add('todo-card');
         header.textContent = object.title;
         div.appendChild(header);
-        para.textContent = object.description;
+        para.textContent = object.desc;
         div.appendChild(para.cloneNode(1));
         para.textContent = 'Due Date: ' + object.dueDate;
         div.appendChild(para.cloneNode(1));
@@ -73,6 +73,6 @@ function openProject() {
             console.log(e.target.parentNode.firstChild.textContent);
         });
 
-    }
+}
 
 export{openProject, makeToDo};
