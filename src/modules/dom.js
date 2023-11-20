@@ -2,24 +2,7 @@
 import {createToDo} from './todo';
 
 
-function newProjectInput(){
-    const projectList = document.querySelector('.project-list');
-    const form = document.createElement('form');
-    form.classList.add('project-form')
-    const input = document.createElement('input');
-    input.setAttribute('type', 'text');
-    input.classList.add('newProject');
-    form.appendChild(input);
-    projectList.appendChild(form);
-    input.focus();
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        getData(e);
-    })
-}
-
-
-
+//button functions
 function openForm() {
     const todoBtn = document.querySelector('.todo-btn');
     const newToDo = document.querySelector('#new-todo');
@@ -58,6 +41,10 @@ function defaultButton () {
     })
 
 }
+
+
+//to do creation
+
 const toDoList = [];
 
 
@@ -80,8 +67,62 @@ function getInputData(e) {
 
 };
 
+function makeToDo(object) {
+    const main = document.querySelector('.to-dos');
+    const div = document.createElement('div');
+    const header = document.createElement('h3');
+    const para = document.createElement('p');
+    const btn = document.createElement('button');
+
+    div.classList.add('todo-card');
+    header.textContent = object.title;
+    div.appendChild(header);
+    para.textContent = object.desc;
+    div.appendChild(para.cloneNode(1));
+    para.textContent = 'Due Date: ' + object.dueDate;
+    div.appendChild(para.cloneNode(1));
+    para.textContent = 'Priority: ' + object.priority;
+    div.appendChild(para.cloneNode(1));
+    btn.classList.add('edit');
+    btn.textContent = 'Edit';
+    div.appendChild(btn.cloneNode(1));
+    btn.classList.remove('edit');
+    btn.classList.add('delete');
+    btn.textContent = 'Delete';
+    div.appendChild(btn.cloneNode(1));
+    main.appendChild(div);
 
 
+    const deleteBtn = div.querySelector('.delete');
+    deleteBtn.addEventListener('click', (e) => {
+        console.log(e.target.parentNode.firstChild.textContent);
+    });
+    const editBtn = div.querySelector('.edit');
+    editBtn.addEventListener('click', (e) => {
+        console.log(e.target.parentNode.firstChild.textContent);
+    });
+}
+
+
+
+
+//project functions
+
+function newProjectInput(){
+    const projectList = document.querySelector('.project-list');
+    const form = document.createElement('form');
+    form.classList.add('project-form')
+    const input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.classList.add('newProject');
+    form.appendChild(input);
+    projectList.appendChild(form);
+    input.focus();
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        getData(e);
+    })
+}
 
 function openProject() {
     const projectBtn = document.querySelector('.project-btn');
@@ -126,40 +167,5 @@ function openProjectList(e) {
 }
 
 
-function makeToDo(object) {
-        const main = document.querySelector('.to-dos');
-        const div = document.createElement('div');
-        const header = document.createElement('h3');
-        const para = document.createElement('p');
-        const btn = document.createElement('button');
-    
-        div.classList.add('todo-card');
-        header.textContent = object.title;
-        div.appendChild(header);
-        para.textContent = object.desc;
-        div.appendChild(para.cloneNode(1));
-        para.textContent = 'Due Date: ' + object.dueDate;
-        div.appendChild(para.cloneNode(1));
-        para.textContent = 'Priority: ' + object.priority;
-        div.appendChild(para.cloneNode(1));
-        btn.classList.add('edit');
-        btn.textContent = 'Edit';
-        div.appendChild(btn.cloneNode(1));
-        btn.classList.remove('edit');
-        btn.classList.add('delete');
-        btn.textContent = 'Delete';
-        div.appendChild(btn.cloneNode(1));
-        main.appendChild(div);
-
-
-        const deleteBtn = div.querySelector('.delete');
-        deleteBtn.addEventListener('click', (e) => {
-            console.log(e.target.parentNode.firstChild.textContent);
-        });
-        const editBtn = div.querySelector('.edit');
-        editBtn.addEventListener('click', (e) => {
-            console.log(e.target.parentNode.firstChild.textContent);
-        });
-}
 
 export{openProject, makeToDo, openForm, cancelButton, submitButton, defaultButton};
