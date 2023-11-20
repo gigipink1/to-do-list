@@ -70,7 +70,12 @@ function getInputData(e) {
     }
     const newItem = createToDo(todoItem[0], todoItem[1], todoItem[2], todoItem[3], todoItem[4]);
     toDoList.push(newItem);
-    makeToDo(newItem);
+    const project = document.querySelector('.to-dos');
+    console.log(project);
+    if (project.classList[1] === newItem.project.replace(/\s+/g, '-').toLowerCase()) {
+        console.log(newItem);
+        makeToDo(newItem);
+    }
     console.log(toDoList)
 
 };
@@ -107,6 +112,9 @@ function addProject(name) {
 
 function openProjectList(e) {
     const todoCards = document.querySelector('.to-dos');
+    let project = e.target.textContent;
+    project = project.replace(/\s+/g, '-').toLowerCase();
+    todoCards.classList.value = `to-dos ${project}`;
     while(todoCards.firstChild) {
         todoCards.removeChild(todoCards.lastChild);
     }
