@@ -1,3 +1,7 @@
+
+import {createToDo} from './todo';
+
+
 function newProjectInput(){
     const projectList = document.querySelector('.project-list');
     const form = document.createElement('form');
@@ -13,6 +17,66 @@ function newProjectInput(){
         getData(e);
     })
 }
+
+
+
+function openForm() {
+    const todoBtn = document.querySelector('.todo-btn');
+    const newToDo = document.querySelector('#new-todo');
+
+    todoBtn.addEventListener('click', () => {
+        newToDo.showModal()
+    })
+    
+}
+
+function cancelButton() {
+    const newToDo = document.querySelector('#new-todo');
+    const cancel = document.querySelector('#modal-cancel');
+    cancel.addEventListener('click', ()=>{
+        newToDo.close();
+    })
+}
+
+function submitButton() {
+    const form = document.querySelector('#new-todo');
+    const realForm = form.querySelector('form');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        form.close();
+        getInputData(e);
+        realForm.reset();
+
+    });
+}
+
+function defaultButton () {
+    const sidebar = document.querySelector('.sidebar');
+    const defaultBtn = sidebar.querySelector('.default');
+    defaultBtn.addEventListener('click', (e) => {
+        openProjectList(e);
+    })
+
+}
+const toDoList = [];
+
+
+function getInputData(e) {
+    const todoItem = [];
+    for(let i=0; i < 5; i++ ) {
+
+        todoItem.push(e.target[i].value);
+
+    }
+    const newItem = createToDo(todoItem[0], todoItem[1], todoItem[2], todoItem[3], todoItem[4]);
+    toDoList.push(newItem);
+    makeToDo(newItem);
+    console.log(toDoList)
+
+};
+
+
+
 
 function openProject() {
     const projectBtn = document.querySelector('.project-btn');
@@ -32,11 +96,27 @@ function addProject(name) {
         const li = document.createElement('li');
         li.textContent = name;
         projectList.appendChild(li);
+        projectList.lastChild.addEventListener('click', (e) =>{
+            openProjectList(e)
+        })
         const options = document.createElement('option');
         const project = document.querySelector('#project');
         options.textContent = name;
         project.appendChild(options);
 }
+
+function openProjectList(e) {
+    const todoCards = document.querySelector('.to-dos');
+    while(todoCards.firstChild) {
+        todoCards.removeChild(todoCards.lastChild);
+    }
+    for (const item of toDoList) {
+        if (item.project === e.target.textContent) {
+            makeToDo(item);
+        }
+    }
+}
+
 
 function makeToDo(object) {
         const main = document.querySelector('.to-dos');
@@ -72,7 +152,6 @@ function makeToDo(object) {
         editBtn.addEventListener('click', (e) => {
             console.log(e.target.parentNode.firstChild.textContent);
         });
-
 }
 
-export{openProject, makeToDo};
+export{openProject, makeToDo, openForm, cancelButton, submitButton, defaultButton};
