@@ -95,7 +95,8 @@ function makeToDo(object) {
 
     const deleteBtn = div.querySelector('.delete');
     deleteBtn.addEventListener('click', (e) => {
-        console.log(e.target.parentNode.firstChild.textContent);
+        console.log(e.target.parentNode.parentNode.classList[1]);
+        deleteToDo(e);
     });
     const editBtn = div.querySelector('.edit');
     editBtn.addEventListener('click', (e) => {
@@ -103,7 +104,32 @@ function makeToDo(object) {
     });
 }
 
+//to-do manipulation
 
+function deleteToDo(e) {
+    const title = e.target.parentNode.children[0].textContent;
+    const desc = e.target.parentNode.children[1].textContent;
+    const dueDate = e.target.parentNode.children[2].textContent;
+    const priority = e.target.parentNode.children[3].textContent;
+    const project = e.target.parentNode.parentNode.classList[1]
+    const todoIndex = toDoList.findIndex( (item) => {
+        return title === item.title && desc === item.desc && project === item.project.replace(/\s+/g, '-').toLowerCase()
+        });
+    
+    console.log(todoIndex);
+    toDoList.splice(todoIndex, 1);
+    removeToDo(title);
+}
+
+function removeToDo(title){
+    const toDos = document.querySelector('.to-dos');
+    const toDoCards = toDos.querySelectorAll('.todo-card');
+    for (const card of toDoCards) {
+        if (title === card.firstChild.textContent) {
+            toDos.removeChild(card);
+        }
+    }
+}
 
 
 //project functions
@@ -130,25 +156,24 @@ function openProject() {
     }
 
 function getData(input) {
-        
-        const projectName = input.target[0].value;
-        console.log(projectName);
-        addProject(projectName);
+    const projectName = input.target[0].value;
+    console.log(projectName);
+    addProject(projectName);
 }
 
 function addProject(name) {
-        const projectList = document.querySelector('.project-list');
-        projectList.removeChild(projectList.lastChild);
-        const li = document.createElement('li');
-        li.textContent = name;
-        projectList.appendChild(li);
-        projectList.lastChild.addEventListener('click', (e) =>{
-            openProjectList(e)
-        })
-        const options = document.createElement('option');
-        const project = document.querySelector('#project');
-        options.textContent = name;
-        project.appendChild(options);
+    const projectList = document.querySelector('.project-list');
+    projectList.removeChild(projectList.lastChild);
+    const li = document.createElement('li');
+    li.textContent = name;
+    projectList.appendChild(li);
+    projectList.lastChild.addEventListener('click', (e) =>{
+        openProjectList(e)
+    });
+    const options = document.createElement('option');
+    const project = document.querySelector('#project');
+    options.textContent = name;
+    project.appendChild(options);
 }
 
 function openProjectList(e) {
