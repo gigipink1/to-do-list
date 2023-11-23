@@ -59,5 +59,41 @@
             </ul>
         </form>
     </dialog>
+    <dialog id="edit-todo">
+        <form>
+            <ul>
+                <li>
+                    <label for="title-edit">Title: </label>
+                    <input type="text" name="title" id="title-edit">
+                </li>
+                <li>
+                    <label for="description-edit">Description:</label>
+                    <textarea id="description-edit" name="description"></textarea>
+                </li>
+                <li>
+                    <label for="priority-edit">Priority:</label>
+                    <select id="priority-edit" name="priority">
+                        <option>High</option>
+                        <option>Medium</option>
+                        <option>Low</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="dueDate-edit">Due Date:</label>
+                    <input type="date" name="dueDate" id="dueDate-edit">
+                </li>
+                <li>
+                    <label for="project-edit">Project: </label>
+                    <select id="project-edit" name="project">
+                        <option>Default</option>
+                    </select>
+                </li>
+                <li>
+                    <button>Confirm</button>
+                    <button id='modal-cancel-edit' type="button">Cancel</button>
+                </li>
+            </ul>
+        </form>
+    </dialog>
 </body>
 </html>

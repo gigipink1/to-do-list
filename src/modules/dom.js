@@ -16,8 +16,11 @@ function openForm() {
 function cancelButton() {
     const newToDo = document.querySelector('#new-todo');
     const cancel = document.querySelector('#modal-cancel');
+    const realForm = newToDo.querySelector('form');
     cancel.addEventListener('click', ()=>{
         newToDo.close();
+        realForm.reset();
+    
     })
 }
 
@@ -37,7 +40,8 @@ function defaultButton () {
     const sidebar = document.querySelector('.sidebar');
     const defaultBtn = sidebar.querySelector('.default');
     defaultBtn.addEventListener('click', (e) => {
-        openProjectList(e);
+        console.log(e.target.textContent);
+        openProjectList(e.target.textContent);
     })
 
 }
@@ -101,6 +105,7 @@ function makeToDo(object) {
     const editBtn = div.querySelector('.edit');
     editBtn.addEventListener('click', (e) => {
         console.log(e.target.parentNode.firstChild.textContent);
+        openEdit(e);
     });
 }
 
@@ -109,8 +114,6 @@ function makeToDo(object) {
 function deleteToDo(e) {
     const title = e.target.parentNode.children[0].textContent;
     const desc = e.target.parentNode.children[1].textContent;
-    const dueDate = e.target.parentNode.children[2].textContent;
-    const priority = e.target.parentNode.children[3].textContent;
     const project = e.target.parentNode.parentNode.classList[1]
     const todoIndex = toDoList.findIndex( (item) => {
         return title === item.title && desc === item.desc && project === item.project.replace(/\s+/g, '-').toLowerCase()
@@ -129,6 +132,76 @@ function removeToDo(title){
             toDos.removeChild(card);
         }
     }
+}
+
+function openEdit(e) {
+
+    const title = e.target.parentNode.children[0].textContent;
+    const desc = e.target.parentNode.children[1].textContent;
+    const dueDate = e.target.parentNode.children[2].textContent;
+    const fixedDD = dueDate.replace('Due Date: ', '');
+    const priority = e.target.parentNode.children[3].textContent;
+    const project = e.target.parentNode.parentNode.classList[1]
+    const todoIndex = toDoList.findIndex( (item) => {
+        return title === item.title && desc === item.desc && project === item.project.replace(/\s+/g, '-').toLowerCase()
+        });
+    
+    console.log(todoIndex);
+    const projectEdit = document.querySelector('#edit-todo');
+    projectEdit.dataset.indexNumber = todoIndex;
+    const titleInput = projectEdit.querySelector('#title-edit');
+    const descInput = projectEdit.querySelector('#description-edit');
+    const priorityInput = projectEdit.querySelector('#priority-edit');
+    const priorityOptions = priorityInput.querySelectorAll('option');
+    const dueDateInput = projectEdit.querySelector('#dueDate-edit');
+    const projectInput = projectEdit.querySelector('#project-edit');
+    const projectOptions = projectInput.querySelectorAll('option');
+    console.log(title);
+    titleInput.value = title;
+    descInput.value = desc;
+    descInput.textContent = desc;
+    priorityOptions.forEach((option) => {
+        console.log(option);
+        if (`Priority: ${option.textContent}` === priority) {
+            option.setAttribute('selected', 'true');
+        }
+    })
+    dueDateInput.value = fixedDD;
+    projectOptions.forEach((option) => {
+        if (option.textContent === project) {
+            option.setAttribute('selected', 'true');
+        }
+    })
+
+    projectEdit.showModal();
+    
+}
+
+function editSubmit(){
+
+    const editModal = document.querySelector('#edit-todo');
+    const editForm = editModal.querySelector('form');
+
+    editForm.addEventListener('submit', (e) => {
+        const todoIndex = parseInt(editModal.dataset.indexNumber);
+        e.preventDefault();
+        console.log(e);
+        editModal.close();
+        editToDo(todoIndex, e);
+        openProjectList(e.target[4].value);
+    })
+}
+
+
+
+function editToDo(todoIndex, e) {
+    toDoList[todoIndex].title = e.target[0].value;
+    toDoList[todoIndex].desc = e.target[1].value;
+    toDoList[todoIndex].dueDate = e.target[3].value;
+    toDoList[todoIndex].priority = e.target[2].value;
+    toDoList[todoIndex].project = e.target[4].value;
+
+
 }
 
 
@@ -168,24 +241,26 @@ function addProject(name) {
     li.textContent = name;
     projectList.appendChild(li);
     projectList.lastChild.addEventListener('click', (e) =>{
-        openProjectList(e)
+        console.log(e.target.textContent);
+        openProjectList(e.target.textContent);
     });
     const options = document.createElement('option');
     const project = document.querySelector('#project');
+    const projectEdit = document.querySelector('#project-edit');
     options.textContent = name;
-    project.appendChild(options);
+    project.appendChild(options.cloneNode(1));
+    projectEdit.appendChild(options.cloneNode(1));
 }
 
-function openProjectList(e) {
+function openProjectList(project) {
     const todoCards = document.querySelector('.to-dos');
-    let project = e.target.textContent;
     project = project.replace(/\s+/g, '-').toLowerCase();
     todoCards.classList.value = `to-dos ${project}`;
     while(todoCards.firstChild) {
         todoCards.removeChild(todoCards.lastChild);
     }
     for (const item of toDoList) {
-        if (item.project === e.target.textContent) {
+        if (item.project.replace(/\s+/g, '-').toLowerCase() === project) {
             makeToDo(item);
         }
     }
@@ -193,4 +268,4 @@ function openProjectList(e) {
 
 
 
-export{openProject, makeToDo, openForm, cancelButton, submitButton, defaultButton};
+export{openProject, makeToDo, openForm, cancelButton, submitButton, defaultButton, editSubmit};
