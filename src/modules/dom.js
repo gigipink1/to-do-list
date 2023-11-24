@@ -1,5 +1,6 @@
 
 import {createToDo} from './todo';
+import pencil from '../assets/pencil-outline.svg'
 
 
 //button functions
@@ -177,10 +178,15 @@ function openEdit(e) {
     
 }
 
-function editSubmit(){
+function editButtons(){
 
     const editModal = document.querySelector('#edit-todo');
     const editForm = editModal.querySelector('form');
+    const deleteBtn = editModal.querySelector('#modal-cancel-edit');
+
+    deleteBtn.addEventListener('click', () => {
+        editModal.close();
+    })
 
     editForm.addEventListener('submit', (e) => {
         const todoIndex = parseInt(editModal.dataset.indexNumber);
@@ -240,6 +246,7 @@ function addProject(name) {
     const li = document.createElement('li');
     li.textContent = name;
     projectList.appendChild(li);
+    li.classList.value = name.replace(/\s+/g, '-').toLowerCase();
     projectList.lastChild.addEventListener('click', (e) =>{
         console.log(e.target.textContent);
         openProjectList(e.target.textContent);
@@ -253,9 +260,30 @@ function addProject(name) {
 }
 
 function openProjectList(project) {
+    const projectList = document.querySelector('.project-list');
+    const projectItems = projectList.querySelectorAll('li');
     const todoCards = document.querySelector('.to-dos');
     project = project.replace(/\s+/g, '-').toLowerCase();
     todoCards.classList.value = `to-dos ${project}`;
+    
+    projectItems.forEach((item) => {
+        if (item.classList.value === project && item.classList.value !== 'project-btn') {
+            item.style.color = 'white';
+            item.style.fontSize = '20px'
+            const button = document.createElement('button');
+            button.classList.add('project-delete');
+            button.textContent = 'X';
+            button.addEventListener('click', deleteProject)
+            item.appendChild(button);
+        } else if (item.classList.value !== project && item.classList.value !== 'project-btn' && item.textContent !== 'Projects') {
+            item.style.color = 'black';
+            item.style.fontSize = '16px'; 
+            if(item.lastChild === item.querySelector('button')) {
+            const button = item.querySelector('button');
+            item.removeChild(button);
+            }
+        }
+    })
     while(todoCards.firstChild) {
         todoCards.removeChild(todoCards.lastChild);
     }
@@ -266,6 +294,16 @@ function openProjectList(project) {
     }
 }
 
+function deleteProject(e) {
+    const project = e.target.parentNode.classList.value;
+    const projectList = document.querySelector('.project-list');
+    const projectItem = projectList.querySelector(`.${project}`);
+    projectList.removeChild(projectItem);
+
+    
+
+}
 
 
-export{openProject, makeToDo, openForm, cancelButton, submitButton, defaultButton, editSubmit};
+
+export{openProject, makeToDo, openForm, cancelButton, submitButton, defaultButton, editButtons};
