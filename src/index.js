@@ -1,6 +1,6 @@
 import './assets/style.css';
 import {editButtons, defaultButton, submitButton, cancelButton, openForm, openProject} from './modules/input'
-import {storeToDos, getToDos} from './modules/storage'
+import {storeToDos, getToDos, storeProjects, getProjects} from './modules/storage'
 
 openForm();
 cancelButton();
@@ -10,6 +10,11 @@ defaultButton();
 editButtons();
 
 
-window.addEventListener('beforeunload', storeToDos);
-//window.addEventListener('reload', storeToDos);
-window.addEventListener('load', getToDos)
+window.addEventListener('beforeunload', () => { 
+    storeToDos();
+    storeProjects();
+});
+window.addEventListener('load', () => {
+     getToDos();
+     getProjects();
+    })

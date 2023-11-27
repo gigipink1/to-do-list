@@ -8,6 +8,7 @@ import pencil from '../assets/pencil-outline.svg'
 
 
 const toDoList = [];
+const projectStorage = ['Default']
 
 
 function getInputData(e) {
@@ -157,12 +158,16 @@ function newProjectInput(){ //dom
 function getData(input) {
     const projectName = input.target[0].value;
     console.log(projectName);
+    projectStorage.push(projectName);
     addProject(projectName);
 }
 
 function addProject(name) { 
+
     const projectList = document.querySelector('.project-list');
+    if (projectList.lastElementChild.classList.value === 'project-form') {
     projectList.removeChild(projectList.lastChild);
+    };
     const li = document.createElement('li');
     li.textContent = name;
     projectList.appendChild(li);
@@ -221,7 +226,12 @@ function deleteProject(e) {
     const projectList = document.querySelector('.project-list');
     const projectItem = projectList.querySelector(`.${project}`);
     const options = document.querySelectorAll('option');
+    const projectIndex = projectStorage.findIndex((item) => {
+        project === item;
+    })
     projectList.removeChild(projectItem);
+    projectStorage.splice(projectIndex, 1);
+    
 
     for (const item of toDoList) {
         if (item.project.replace(/\s+/g, '-').toLowerCase() === project) {
@@ -243,4 +253,4 @@ function deleteProject(e) {
 
 
 
-export{openProjectList, getInputData, newProjectInput, toDoList, makeToDo};
+export{openProjectList, getInputData, newProjectInput, toDoList, makeToDo, projectStorage, addProject};

@@ -1,4 +1,4 @@
-import {getInputData, openProjectList, newProjectInput, toDoList, toDoStorage} from './dom'
+import {getInputData, openProjectList, newProjectInput, toDoList} from './dom'
 import {editToDo} from './todo'
 
 function openForm() {
