@@ -38,7 +38,7 @@ function defaultButton () {
     const sidebar = document.querySelector('.sidebar');
     const defaultBtn = sidebar.querySelector('.default');
     defaultBtn.addEventListener('click', (e) => {
-        console.log(e.target.textContent);
+        //console.log(e.target.textContent);
         openProjectList(e.target.textContent);
     })
 
@@ -57,7 +57,7 @@ function editButtons(){
     editForm.addEventListener('submit', (e) => {
         const todoIndex = parseInt(editModal.dataset.indexNumber);
         e.preventDefault();
-        console.log(e);
+        //console.log(e);
         editModal.close();
         editToDo(toDoList[todoIndex], e);
         openProjectList(e.target[4].value);

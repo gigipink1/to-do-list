@@ -15,12 +15,12 @@ function storeProjects (){
 function getToDos() {
     if (localStorage.getItem) {
     const storage = JSON.parse(localStorage.getItem('toDos'));
-    console.log(storage);
+    //console.log(storage);
     for(let i = 0; i < storage.length; i++){
         toDoList.push(storage[i]);
         makeToDo(storage[i])
     }
-    console.log(toDoList);
+    //console.log(toDoList);
     }
 }
 
@@ -28,10 +28,10 @@ function getProjects() {
 
     const projects = JSON.parse(localStorage.getItem('Projects'));
 
-    console.log(projects);
+    //console.log(projects);
     for (let i = 1; i < projects.length; i++) {
         if (projects[i] !== 'Default') {
-        console.log(projects[i]);
+        //console.log(projects[i]);
         projectStorage.push(projects[i]);
         addProject(projects[i])
         }

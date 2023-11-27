@@ -21,11 +21,11 @@ function getInputData(e) {
     const newItem = createToDo(todoItem[0], todoItem[1], todoItem[2], todoItem[3], todoItem[4]);
     toDoList.push(newItem);
     const project = document.querySelector('.to-dos');
-    console.log(project);
+    //console.log(project);
     if (project.classList[1] === newItem.project.replace(/\s+/g, '-').toLowerCase()) {
         makeToDo(newItem);
     }
-    console.log(toDoList)
+    //console.log(toDoList)
 
 };
 
@@ -57,12 +57,12 @@ function makeToDo(object) {
 
     const deleteBtn = div.querySelector('.delete');
     deleteBtn.addEventListener('click', (e) => {
-        console.log(e.target.parentNode.parentNode.classList[1]);
+        //console.log(e.target.parentNode.parentNode.classList[1]);
         deleteToDo(e);
     });
     const editBtn = div.querySelector('.edit');
     editBtn.addEventListener('click', (e) => {
-        console.log(e.target.parentNode.firstChild.textContent);
+        //console.log(e.target.parentNode.firstChild.textContent);
         openEdit(e);
     });
 }
@@ -77,7 +77,7 @@ function deleteToDo(e) {
         return title === item.title && desc === item.desc && project === item.project.replace(/\s+/g, '-').toLowerCase()
         });
     
-    console.log(todoIndex);
+    //console.log(todoIndex);
     toDoList.splice(todoIndex, 1);
     removeToDo(title);
 }
@@ -104,7 +104,7 @@ function openEdit(e) { //dom
         return title === item.title && desc === item.desc && project === item.project.replace(/\s+/g, '-').toLowerCase()
         });
     
-    console.log(todoIndex);
+   // console.log(todoIndex);
     const projectEdit = document.querySelector('#edit-todo');
     projectEdit.dataset.indexNumber = todoIndex;
     const titleInput = projectEdit.querySelector('#title-edit');
@@ -114,12 +114,12 @@ function openEdit(e) { //dom
     const dueDateInput = projectEdit.querySelector('#dueDate-edit');
     const projectInput = projectEdit.querySelector('#project-edit');
     const projectOptions = projectInput.querySelectorAll('option');
-    console.log(title);
+    //console.log(title);
     titleInput.value = title;
     descInput.value = desc;
     descInput.textContent = desc;
     priorityOptions.forEach((option) => {
-        console.log(option);
+        //console.log(option);
         if (`Priority: ${option.textContent}` === priority) {
             option.setAttribute('selected', 'true');
         }
@@ -157,7 +157,7 @@ function newProjectInput(){ //dom
 
 function getData(input) {
     const projectName = input.target[0].value;
-    console.log(projectName);
+    //console.log(projectName);
     projectStorage.push(projectName);
     addProject(projectName);
 }
@@ -173,7 +173,7 @@ function addProject(name) {
     projectList.appendChild(li);
     li.classList.value = name.replace(/\s+/g, '-').toLowerCase();
     projectList.lastChild.addEventListener('click', (e) =>{
-        console.log(e.target.textContent);
+        //console.log(e.target.textContent);
         openProjectList(e.target.textContent);
     });
     const options = document.createElement('option');
